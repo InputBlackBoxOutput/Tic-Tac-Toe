@@ -66,11 +66,11 @@ class GUI(Tk):
         print('Beginning game vs person')
 
     def how_to_play(self):
-        with open(r'help.txt', 'r') as help_file:
+        with open(r'help.txt', 'rt') as help_file:
             msgbox.showinfo('HOW TO PLAY', help_file.read())
 
     def about(self):
-        with open(r'about.txt', 'r') as about_file:
+        with open(r'about.txt', 'rt') as about_file:
             msgbox.showinfo('ABOUT', about_file.read())
 
     '''Fxn to build menu bar'''
@@ -99,6 +99,15 @@ class GUI(Tk):
                 self.b_list[each_button].configure(text=new_text, font=f"calibri {self.font_size - 1} bold")
                 each_button = each_button + 1
 
+        # If there is no winner notify the user and begin the game again
+        if self.board.cross_nut_map['empty'] not in self.board.grid_map[0]:
+        	if self.board.cross_nut_map['empty'] not in self.board.grid_map[1]:
+        		if self.board.cross_nut_map['empty'] not in self.board.grid_map[2]:
+        			msgbox.showinfo('No winner', "Looks like there is no winner.")
+        			self.board.clear_cross_nut()
+        			self.update_board()
+
+
     '''Helper function for button_pressed function'''
     def toggle_move(self):
         if self.move == 'cross':
@@ -113,10 +122,11 @@ class GUI(Tk):
             return 'cross'
 
     def button_pressed(self, button, x, y):
-        # Write code to stop the game when winner_string is set
-        # if self.board.winner_string is not None :
-        #     pass
+        # Don't do anything if there is a winner
+        if self.board.winner_string is not None :
+             return
 
+        # Do something if there is no winner
         print(f'Button {button} pressed')
 
         self.board.place_cross_nut(x, y, self.move)
