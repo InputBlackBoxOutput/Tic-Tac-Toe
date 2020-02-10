@@ -2,9 +2,9 @@
 Everybody knows Tic Tac Toe.
 
 ## Installation
-This software does not require installation however the user should have Pthon 3.x interpreter installed.
+This software does not require installation however the user should have Python (3.6 or above) installed.
 
-Python 3.x can be downloaded from the [www.python.org](https://www.python.org/)
+Python can be downloaded from [www.python.org](https://www.python.org/)
 
 ## Usage
 Run GUI.py and enjoy playing Tic Tac Toe.
