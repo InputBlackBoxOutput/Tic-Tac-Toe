@@ -1,7 +1,7 @@
 # File containing GUI for Cross and Nut Game Application
 # Built using python's tkinter module
 
-# File Name:GUI.py
+# File Name:Tic_Tac_Toe.py
 # Description:Provides graphical user interface (GUI) for Cross & Nut game
 #
 # Written by Rutuparn Pawar
@@ -24,10 +24,12 @@
 
 # Modify below import to import only those modules which are needed
 
+'''Project Note: Renaming the file with .pyw extension is not working '''
+
 from tkinter import *
 import tkinter.messagebox as msgbox
 
-from Tic_Tac_Toe import *
+from Compute import *
 
 
 class GUI(Tk):
@@ -101,11 +103,11 @@ class GUI(Tk):
 
         # If there is no winner notify the user and begin the game again
         if self.board.cross_nut_map['empty'] not in self.board.grid_map[0]:
-        	if self.board.cross_nut_map['empty'] not in self.board.grid_map[1]:
-        		if self.board.cross_nut_map['empty'] not in self.board.grid_map[2]:
-        			msgbox.showinfo('No winner', "Looks like there is no winner.")
-        			self.board.clear_cross_nut()
-        			self.update_board()
+            if self.board.cross_nut_map['empty'] not in self.board.grid_map[1]:
+                if self.board.cross_nut_map['empty'] not in self.board.grid_map[2]:
+                    msgbox.showinfo('No winner', "Looks like there is no winner.")
+                    self.board.clear_cross_nut()
+                    self.update_board()
 
 
     '''Helper function for button_pressed function'''
@@ -117,9 +119,9 @@ class GUI(Tk):
 
     def whose_move(self):
         if self.move == 'cross':
-            return 'nut'
+            return 'Nut'
         else:
-            return 'cross'
+            return'Cross'
 
     def button_pressed(self, button, x, y):
         # Don't do anything if there is a winner
@@ -129,24 +131,25 @@ class GUI(Tk):
         # Do something if there is no winner
         print(f'Button {button} pressed')
 
-        self.board.place_cross_nut(x, y, self.move)
+        stat = self.board.place_cross_nut(x, y, self.move)
         print(self.board.grid_map)
 
-        self.update_board()
-        self.board.winner_string = self.board.winner_check(self.move)
-
-        if self.board.winner_string is not None:
-            self.status.configure(text=self.board.winner_string)
-            return
-
         if self.bot is False:
-            next_move = self.whose_move()
-            self.status.configure(text=f"{next_move}'s turn ")
-            self.toggle_move()
+            if stat:
+                self.update_board()
+                self.board.winner_string = self.board.winner_check(self.move)
+                self.status.configure(text=f"{self.whose_move()}'s turn ")
+                self.toggle_move()
+
+            if self.board.winner_string is not None:
+                self.status.configure(text=self.board.winner_string)
+                return
+
         else:
             self.board.bot_move()
             self.update_board()
             self.board.winner_string = self.board.winner_check('nut')
+            self.board.winner_string = self.board.winner_check('cross')
 
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
@@ -155,27 +158,20 @@ class GUI(Tk):
     # Binding functions for playing grid
     def b0(self):
         self.button_pressed(0, 0, 0)
-
     def b1(self):
         self.button_pressed(1, 0, 1)
-
     def b2(self):
         self.button_pressed(2, 0, 2)
-
     def b3(self):
         self.button_pressed(3, 1, 0)
-
     def b4(self):
         self.button_pressed(4, 1, 1)
-
     def b5(self):
         self.button_pressed(5, 1, 2)
-
     def b6(self):
         self.button_pressed(6, 2, 0)
     def b7(self):
         self.button_pressed(7, 2, 1)
-
     def b8(self):
         self.button_pressed(8, 2, 2)
 
@@ -185,11 +181,17 @@ class GUI(Tk):
         self.grid_map = Frame(self.canvas, bg='grey')
         self.canvas.pack(fill=BOTH)
 
+        # Draw line after game has a winner (Not working!)
+        # Looks like drawing on canvas does not get superimposed on button widget
+        #self.canvas.create_line(0, 0, 1000, 1000, fill="red")
+
+        # Generate 9 button widgets
         self.b_list = []
         for each in range(0, 9):
             self.b_list.append(
                 Button(self.grid_map, text='  ', font=f"calibri {self.font_size} bold", padx=padding, pady=padding))
 
+        # Place 9 button widgets in a grid
         each = 0
         for r in range(0, 3):
             for c in range(0, 3):

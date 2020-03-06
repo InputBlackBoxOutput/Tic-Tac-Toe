@@ -1,7 +1,7 @@
 # File containing algorithm for Cross and Nut Game Application
 # Built using python's tkinter module
 
-# File Name:Tic_Tac_Toe.py
+# File Name:Compute.py
 # Description:Provides game algorithm for Cross & Nut game
 #
 # Written by Rutuparn Pawar
@@ -34,25 +34,27 @@ class Tic_Tac_Toe:
         self.winner_string = None
 
     """Function to place cross/nut in grid if place is empty"""
-
     def place_cross_nut(self, x, y, place):
         if place == 'cross':
             if self.grid_map[x][y] == '  ':
                 self.grid_map[x][y] = self.cross_nut_map[place]
-                return f'Cross placed at ({x},{y})'
+                # Cross placed at ({x},{y})
+                return True
             else:
-                return f'Cross cannot be placed at ({x},{y}) since place is not empty'
+                # Cross cannot be placed at ({x},{y}) since place is not empty
+                return False
         elif place == 'nut':
             if self.grid_map[x][y] == '  ':
                 self.grid_map[x][y] = self.cross_nut_map[place]
-                return f'Nut placed at ({x},{y})'
+                # Nut placed at ({x},{y})
+                return True
             else:
-                return f'Nut cannot be placed at ({x},{y}) since place is not empty'
+                # Nut cannot be placed at ({x},{y}) since place is not empty
+                return False
         else:
             self.grid_map[x][y] = self.cross_nut_map['empty']
 
     """Function to check if the player/computer has won"""
-
     def winner_check(self, player):
 
         # Check for 3 cross/nut in a row
@@ -110,11 +112,10 @@ class Tic_Tac_Toe:
             print()
 
     """ Function to run gameloop in console for testing """
-
     def gameloop_for_testing(self):
 
         print("CROSS & NUT")
-        print('Important Note - !!!!! GRID MAY BEEN PREDEFINED !!!!!')
+        print('@Attention - !!!!! GRID MAY BEEN PREDEFINED !!!!!')
 
         while self.winner_string is None:
 
