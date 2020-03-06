@@ -7,7 +7,7 @@ This software does not require installation however the user should have Python 
 Python can be downloaded from [www.python.org](https://www.python.org/)
 
 ## Usage
-Run GUI.py and enjoy playing Tic Tac Toe.
+Run Tic_Tac_Toe.py and enjoy playing Tic Tac Toe.
 
 ## Contributing
 You may contibute to this project by developing additional features.
