@@ -6,8 +6,15 @@ This software does not require installation however the user should have Python 
 
 Python can be downloaded from [www.python.org](https://www.python.org/)
 
+
 ## Usage
-Run Tic_Tac_Toe.py and enjoy playing Tic Tac Toe.
+Run *Tic_Tac_Toe.py* on python and enjoy playing Tic Tac Toe.
+
+If you are using  Windows OS, then run *Tic_Tac_Toe.bat*
+
+## Screenshots
+![Screenshot1](https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot1.jpg)
+![Screenshot2](https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot2.jpg)
 
 ## Contributing
 You may contibute to this project by developing additional features.
