@@ -23,7 +23,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import random  # Used by Game_Bot Class
-
+import time
 
 class Tic_Tac_Toe:
 
@@ -64,7 +64,7 @@ class Tic_Tac_Toe:
                 if self.cross_nut_map[player] == self.grid_map[x][y]:
                     win_count = win_count + 1
             if win_count == 3:
-                print('Complete Row', end='\n\n')
+                # print('Complete Row', end='\n\n')
                 return 'Winner is ' + player
 
         # Check for 3 cross/nut in a column
@@ -74,7 +74,7 @@ class Tic_Tac_Toe:
                 if self.cross_nut_map[player] == self.grid_map[x][y]:
                     win_count = win_count + 1
             if win_count == 3:
-                print('Complete column', end='\n\n')
+                # print('Complete column', end='\n\n')
                 return 'Winner is ' + player
 
                 # Check for 3 cross/nut across diagonals
@@ -84,7 +84,7 @@ class Tic_Tac_Toe:
             if self.cross_nut_map[player] == self.grid_map[i][i]:
                 win_count = win_count + 1
         if win_count == 3:
-            print('Complete Diagonal \\', end='\n\n')
+            # print('Complete Diagonal \\', end='\n\n')
             return 'Winner is ' + player
 
         win_count = 0
@@ -92,7 +92,7 @@ class Tic_Tac_Toe:
             if self.cross_nut_map[player] == self.grid_map[i][i]:
                 win_count = win_count + 1
         if win_count == 3:
-            print('Complete Diagonal /', end='\n\n')
+            # print('Complete Diagonal /', end='\n\n')
             return 'Winner is ' + player
 
         return None
@@ -104,23 +104,23 @@ class Tic_Tac_Toe:
                 self.grid_map[each_r][each_c] = self.cross_nut_map['empty']
 
     """ Function to display grid on console for testing """
-    def display_for_testing(self):
-        index = [0, 1, 2]
-        for x in index:
-            for y in index:
-                print(self.grid_map[x][y], end=' ')
-            print()
+    # def display_for_testing(self):
+    #     index = [0, 1, 2]
+    #     for x in index:
+    #         for y in index:
+    #           print(self.grid_map[x][y], end=' ')
+    #       print()
 
     """ Function to run gameloop in console for testing """
     def gameloop_for_testing(self):
 
-        print("CROSS & NUT")
-        print('@Attention - !!!!! GRID MAY BEEN PREDEFINED !!!!!')
+        # print("CROSS & NUT")
+        # print('@Attention - !!!!! GRID MAY BEEN PREDEFINED !!!!!')
 
         while self.winner_string is None:
 
             self.display_for_testing()
-            print("Player X")
+            # print("Player X")
             x = input("Enter x coordinate :")
             y = input("Enter y coordinate :")
             self.place_cross_nut(int(x), int(y), 'cross')
@@ -131,14 +131,14 @@ class Tic_Tac_Toe:
 
             self.display_for_testing()
 
-            print("Player O")
+            # print("Player O")
             x = input("Enter x coordinate :")
             y = input("Enter y coordinate :")
             self.place_cross_nut(int(x), int(y), 'nut')
             self.winner_string = self.winner_check('nut')
 
         self.display_for_testing()
-        print(self.winner_string)
+        # print(self.winner_string)
 
         return
 
@@ -161,7 +161,7 @@ class Tic_Tac_Toe:
 
             retries = retries + 1
             if retries == 10:
-                print("Error: random_position tries exceeded")
+                # print("Error: random_position tries exceeded")
                 break
 
         return position
@@ -169,6 +169,8 @@ class Tic_Tac_Toe:
     """Function to get computer's move in a game vs computer"""
 
     def bot_move(self):
+        # Wait for some time 
+        time.sleep(0.1)
 
         # For manual difficulty setting (Not used)
         # if difficulty == 'hard':
@@ -180,17 +182,17 @@ class Tic_Tac_Toe:
 
         # Difficulty increased by increasing the number of retries
         run = random.randint(1, 7)
-        print(f"Difficulty = {run}")
+        # print(f"Difficulty = {run}")
 
         while run is not 0:
-            print(f'Pass ({run})')
+            # print(f'Pass ({run})')
 
             position = self.random_position()
-            print(position)
+            # print(position)
 
             self.grid_map[position[0]][position[1]] = self.cross_nut_map['nut']
 
-            print(self.grid_map)
+            # print(self.grid_map)
 
             win = self.winner_check('nut')
 
@@ -203,9 +205,9 @@ class Tic_Tac_Toe:
             run = run - 1
             if run is 0:
                 position = self.random_position()
-                print(f"Finally {position}")
+                # print(f"Finally {position}")
                 self.place_cross_nut(position[0], position[1], 'nut')
-                print(self.grid_map)
+                # print(self.grid_map)
 
 
 

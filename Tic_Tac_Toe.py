@@ -25,6 +25,8 @@
 # Modify below import to import only those modules which are needed
 
 '''Project Note: Renaming the file with .pyw extension is not working '''
+import os
+import sys
 
 from tkinter import *
 import tkinter.messagebox as msgbox
@@ -57,22 +59,22 @@ class GUI(Tk):
         self.move = 'cross'
         self.board.winner_string = None
         self.status.configure(text="Developed by Rutuparn Pawar")
-        print('Beginning game vs computer')
+        # print('Beginning game vs computer')
 
     def Vs_player(self):
         self.board.clear_cross_nut()
         self.update_board()
         self.bot = False
         self.board.winner_string = None
-        self.status.configure(text="cross's turn")
-        print('Beginning game vs person')
+        self.move = 'cross'
+        # print('Beginning game vs person')
 
     def how_to_play(self):
-        with open(r'help.txt', 'rt') as help_file:
+        with open(os.path.join(sys.path[0], "help.txt"), "rt") as help_file:
             msgbox.showinfo('HOW TO PLAY', help_file.read())
 
     def about(self):
-        with open(r'about.txt', 'rt') as about_file:
+        with open(os.path.join(sys.path[0], "about.txt"), "r") as about_file:
             msgbox.showinfo('ABOUT', about_file.read())
 
     '''Fxn to build menu bar'''
@@ -129,10 +131,10 @@ class GUI(Tk):
              return
 
         # Do something if there is no winner
-        print(f'Button {button} pressed')
+        # print(f'Button {button} pressed')
 
         stat = self.board.place_cross_nut(x, y, self.move)
-        print(self.board.grid_map)
+        # print(self.board.grid_map)
 
         if self.bot is False:
             if stat:
@@ -224,6 +226,7 @@ class GUI(Tk):
 
 # ////////////////////////////////////////////////////////////////////////////////////////////
 if __name__ == "__main__":
+    print("Please minimize this window.")
     window = GUI(background='grey', font_size=10)
     window.menu_bar()
     window.heading_label(padding=2)
