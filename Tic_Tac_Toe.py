@@ -24,15 +24,13 @@
 
 # Modify below import to import only those modules which are needed
 
-'''Project Note: Renaming the file with .pyw extension is not working '''
+# Project Note: Renaming the file with .pyw extension is not working
 import os
-import sys
 
 from tkinter import *
 import tkinter.messagebox as msgbox
 
 from Compute import *
-
 
 class GUI(Tk):
     def __init__(self, background, font_size):
@@ -70,12 +68,18 @@ class GUI(Tk):
         # print('Beginning game vs person')
 
     def how_to_play(self):
-        with open(os.path.join(sys.path[0], "help.txt"), "rt") as help_file:
-            msgbox.showinfo('HOW TO PLAY', help_file.read())
+        try:
+            with open(os.path.join(sys.path[0], "help.txt"), "rt") as help_file:
+                msgbox.showinfo('HOW TO PLAY', help_file.read())
+        except FileNotFoundError:
+            print("File not found!")
 
     def about(self):
-        with open(os.path.join(sys.path[0], "about.txt"), "r") as about_file:
-            msgbox.showinfo('ABOUT', about_file.read())
+        try:
+            with open(os.path.join(sys.path[0], "about.txt"), "r") as about_file:
+                msgbox.showinfo('ABOUT', about_file.read())
+        except FileNotFoundError:
+            print("File not found!")
 
     '''Fxn to build menu bar'''
     def menu_bar(self):
@@ -104,12 +108,10 @@ class GUI(Tk):
                 each_button = each_button + 1
 
         # If there is no winner notify the user and begin the game again
-        if self.board.cross_nut_map['empty'] not in self.board.grid_map[0]:
-            if self.board.cross_nut_map['empty'] not in self.board.grid_map[1]:
-                if self.board.cross_nut_map['empty'] not in self.board.grid_map[2]:
-                    msgbox.showinfo('No winner', "Looks like there is no winner.")
-                    self.board.clear_cross_nut()
-                    self.update_board()
+        if self.board.game_tied():
+            msgbox.showinfo('No winner', "Looks like there is no winner.")
+            self.board.clear_cross_nut()
+            self.update_board()
 
 
     '''Helper function for button_pressed function'''
@@ -128,7 +130,7 @@ class GUI(Tk):
     def button_pressed(self, button, x, y):
         # Don't do anything if there is a winner
         if self.board.winner_string is not None :
-             return
+            return
 
         # Do something if there is no winner
         # print(f'Button {button} pressed')
@@ -150,17 +152,17 @@ class GUI(Tk):
         else:
             self.board.bot_move()
             self.update_board()
-            
-            self.board.winner_string = self.board.winner_check('nut')
-            if self.board.winner_string is not None:
-                self.status.configure(text=self.board.winner_string)
-                return
-            
+
             self.board.winner_string = self.board.winner_check('cross')
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
-                return
-            
+
+            self.board.winner_string = self.board.winner_check('nut')
+            if self.board.winner_string is not None:
+                self.status.configure(text=self.board.winner_string)
+
+
+
 
     # Binding functions for playing grid
     def b0(self):
