@@ -150,12 +150,17 @@ class GUI(Tk):
         else:
             self.board.bot_move()
             self.update_board()
+            
             self.board.winner_string = self.board.winner_check('nut')
-            self.board.winner_string = self.board.winner_check('cross')
-
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
                 return
+            
+            self.board.winner_string = self.board.winner_check('cross')
+            if self.board.winner_string is not None:
+                self.status.configure(text=self.board.winner_string)
+                return
+            
 
     # Binding functions for playing grid
     def b0(self):
