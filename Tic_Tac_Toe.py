@@ -53,18 +53,21 @@ class GUI(Tk):
     def Vs_computer(self):
         self.board.clear_cross_nut()
         self.update_board()
+        self.remove_mark()
         self.bot = True
         self.move = 'cross'
         self.board.winner_string = None
-        self.status.configure(text="Developed by Rutuparn Pawar")
+        self.status.configure(text="Match versus computer")
         # print('Beginning game vs computer')
 
     def Vs_player(self):
         self.board.clear_cross_nut()
         self.update_board()
+        self.remove_mark()
         self.bot = False
         self.board.winner_string = None
         self.move = 'cross'
+        self.status.configure(text="")
         # print('Beginning game vs person')
 
     def how_to_play(self):
@@ -107,8 +110,9 @@ class GUI(Tk):
                 self.b_list[each_button].configure(text=new_text, font=f"calibri {self.font_size - 1} bold")
                 each_button = each_button + 1
 
-        # If there is no winner notify the user and begin the game again
-        if self.board.game_tied():
+    ''' If there is no winner notify the user and begin the game again '''
+    def no_winner(self):
+        if self.board.game_tied() and self.board.winner_string is None:
             msgbox.showinfo('No winner', "Looks like there is no winner.")
             self.board.clear_cross_nut()
             self.update_board()
@@ -147,7 +151,10 @@ class GUI(Tk):
 
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
+                self.mark()
                 return
+
+            self.no_winner()
 
         else:
             self.board.bot_move()
@@ -156,10 +163,14 @@ class GUI(Tk):
             self.board.winner_string = self.board.winner_check('cross')
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
+                self.mark()
 
             self.board.winner_string = self.board.winner_check('nut')
             if self.board.winner_string is not None:
                 self.status.configure(text=self.board.winner_string)
+                self.mark()
+
+            self.no_winner()
 
 
 
@@ -231,6 +242,89 @@ class GUI(Tk):
         self.status.pack(side=BOTTOM, fill=X)
         Label(self, bg=self.bkgnd).pack(side=BOTTOM)
 
+    '''Fxn to remove mark row/column/diagonal'''
+    def remove_mark(self):
+        for each_button in self.b_list:
+            each_button.configure(bg='#F0FF0FF0F')
+          
+    '''Fxn to mark row/column/diagonal'''
+    def mark(self):
+        self.remove_mark()
+
+        for player in ['cross', 'nut']:
+            # Check for 3 cross/nut in a row
+            for x in range(0, 3):
+                win_count = 0
+                for y in range(0, 3):
+                    if self.board.cross_nut_map[player] == self.board.grid_map[x][y]:
+                        win_count = win_count + 1
+                if win_count == 3:
+                    if x == 0:
+                        self.b_list[0].configure(bg='green')
+                        self.b_list[1].configure(bg='green')
+                        self.b_list[2].configure(bg='green')
+                        break 
+                    elif x == 1:
+                        self.b_list[3].configure(bg='green')
+                        self.b_list[4].configure(bg='green')
+                        self.b_list[5].configure(bg='green')
+                        break
+                    elif x == 2:
+                        self.b_list[6].configure(bg='green')
+                        self.b_list[7].configure(bg='green')
+                        self.b_list[8].configure(bg='green')
+                        break
+
+            # Check for 3 cross/nut in a column
+            for y in range(0, 3):
+                win_count = 0
+                for x in range(0, 3):
+                    if self.board.cross_nut_map[player] == self.board.grid_map[x][y]:
+                        win_count = win_count + 1
+                if win_count == 3:
+                    if y == 0:
+                        self.b_list[0].configure(bg='green')
+                        self.b_list[3].configure(bg='green')
+                        self.b_list[6].configure(bg='green')
+                        break 
+                    elif y == 1:
+                        self.b_list[1].configure(bg='green')
+                        self.b_list[4].configure(bg='green')
+                        self.b_list[7].configure(bg='green')
+                        break
+                    elif y == 2:
+                        self.b_list[2].configure(bg='green')
+                        self.b_list[5].configure(bg='green')
+                        self.b_list[8].configure(bg='green')
+                        break               
+
+            # Check for 3 cross/nut across diagonals
+            win_count = 0
+            for i in range(0, 3):
+                if self.board.cross_nut_map[player] == self.board.grid_map[i][i]:
+                    win_count = win_count + 1
+            if win_count == 3:
+                self.b_list[0].configure(bg='green')
+                self.b_list[4].configure(bg='green')
+                self.b_list[8].configure(bg='green')
+                return
+
+            win_count = 0
+            if self.board.cross_nut_map[player] == self.board.grid_map[0][2]:
+                win_count = win_count + 1
+            if self.board.cross_nut_map[player] == self.board.grid_map[1][1]:
+                win_count = win_count + 1
+            if self.board.cross_nut_map[player] == self.board.grid_map[2][0]:
+                win_count = win_count + 1
+            
+            if win_count == 3:
+                self.b_list[2].configure(bg='green')
+                self.b_list[4].configure(bg='green')
+                self.b_list[6].configure(bg='green')
+                return
+            
+        
+
 # ////////////////////////////////////////////////////////////////////////////////////////////
 if __name__ == "__main__":
     print("Please minimize this window.")
@@ -239,4 +333,5 @@ if __name__ == "__main__":
     window.heading_label(padding=2)
     window.status_bar(padding=2)
     window.play_grid(padding=40)
+    window.remove_mark()
     window.mainloop()

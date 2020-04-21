@@ -78,8 +78,7 @@ class Tic_Tac_Toe:
 				# print('Complete column', end='\n\n')
 				return 'Winner is ' + player
 
-				# Check for 3 cross/nut across diagonals
-
+		# Check for 3 cross/nut across diagonals
 		win_count = 0
 		for i in range(0, 3):
 			if self.cross_nut_map[player] == self.grid_map[i][i]:
@@ -89,9 +88,14 @@ class Tic_Tac_Toe:
 			return 'Winner is ' + player
 
 		win_count = 0
-		for i in range(2, -1, -1):
-			if self.cross_nut_map[player] == self.grid_map[i][i]:
-				win_count = win_count + 1
+		
+		if self.cross_nut_map[player] == self.grid_map[0][2]:
+			win_count = win_count + 1
+		if self.cross_nut_map[player] == self.grid_map[1][1]:
+			win_count = win_count + 1
+		if self.cross_nut_map[player] == self.grid_map[2][0]:
+			win_count = win_count + 1
+
 		if win_count == 3:
 			# print('Complete Diagonal /', end='\n\n')
 			return 'Winner is ' + player
@@ -170,8 +174,8 @@ class Tic_Tac_Toe:
 				found_position = False
 
 			retries = retries + 1
-			if retries == 10:
-				# print("Error: random_position tries exceeded")
+			if retries == 25:
+				print("Error: random_position tries exceeded")
 				break
 
 		return position
@@ -217,14 +221,18 @@ class Tic_Tac_Toe:
 					self.grid_map[each[0]][each[1]] = self.cross_nut_map['nut']
 					best_move = True
 					break
+			if best_move:
+				return
+			else:
+				position = self.random_position()
+				self.place_cross_nut(position[0], position[1], 'nut')
 
 		# Play random move
 		if chance == 1:
 			position = self.random_position()
 			self.place_cross_nut(position[0], position[1], 'nut')
 
-
-
+		# print(self.grid_map)
 
 # For testing game vs person
 # game=Tic_Tac_Toe()
