@@ -105,9 +105,10 @@ class Tic_Tac_Toe:
 	'''Function to check if  '''
 
 	def game_tied(self):
-		for row in range(0, 3):
-			if self.cross_nut_map['empty'] in self.grid_map[row]:
-				return False
+		if self.winner_string is None: 
+			for row in range(0, 3):
+				if self.cross_nut_map['empty'] in self.grid_map[row]:
+					return False
 		return True
 
 	'''Function to clear grid_map'''
@@ -191,48 +192,48 @@ class Tic_Tac_Toe:
 
 	"""Function to get computer's move in a game vs computer"""
 	def bot_move(self):
-		# Wait for some time
-		time.sleep(0.1)
-		# 50% chance of best move
-		chance = random.randint(0, 1)
+		if not self.game_tied() and self.winner_string is None:
+			# Wait for some time
+			time.sleep(0.1)
+			random.seed(random.randint(20, 120))
+			# 75% chance of best move
+			chance = random.randint(0, 3)
 
-		if chance == 0:
-			best_move = False
-			# Check if winning move possible
-			for each in self.get_vacant_pos():
-				self.grid_map[each[0]][each[1]] = self.cross_nut_map['nut']
-
-				if self.winner_check('nut') is None:
-					self.grid_map[each[0]][each[1]] = self.cross_nut_map['empty']
-				else:
-					best_move = True
-					break
-
-			if best_move:
-				return
-
-			# Check if blocking move possible
-			for each in self.get_vacant_pos():
-				self.grid_map[each[0]][each[1]] = self.cross_nut_map['cross']
-
-				if self.winner_check('cross') is None:
-					self.grid_map[each[0]][each[1]] = self.cross_nut_map['empty']
-				else:
+			if chance > 0 :
+				best_move = False
+				# Check if winning move possible
+				for each in self.get_vacant_pos():
 					self.grid_map[each[0]][each[1]] = self.cross_nut_map['nut']
-					best_move = True
-					break
-			if best_move:
-				return
-			else:
+
+					if self.winner_check('nut') is None:
+						self.grid_map[each[0]][each[1]] = self.cross_nut_map['empty']
+					else:
+						best_move = True
+						break
+
+				if best_move:
+					return
+
+				# Check if blocking move possible
+				for each in self.get_vacant_pos():
+					self.grid_map[each[0]][each[1]] = self.cross_nut_map['cross']
+
+					if self.winner_check('cross') is None:
+						self.grid_map[each[0]][each[1]] = self.cross_nut_map['empty']
+					else:
+						self.grid_map[each[0]][each[1]] = self.cross_nut_map['nut']
+						best_move = True
+						break
+				if best_move:
+					return
+				else:
+					position = self.random_position()
+					self.place_cross_nut(position[0], position[1], 'nut')
+
+			# Play random move
+			if chance == 0:
 				position = self.random_position()
 				self.place_cross_nut(position[0], position[1], 'nut')
-
-		# Play random move
-		if chance == 1:
-			position = self.random_position()
-			self.place_cross_nut(position[0], position[1], 'nut')
-
-		# print(self.grid_map)
 
 # For testing game vs person
 # game=Tic_Tac_Toe()
