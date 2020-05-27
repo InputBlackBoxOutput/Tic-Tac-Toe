@@ -1,6 +1,8 @@
 # Tic Tac Toe
 Everybody knows Tic Tac Toe.
 
+#### Play the game online @ https://inputblackboxoutput.github.io/Tic-Tac-Toe-Online/
+
 ## Installation
 This software does not require installation however the user should have Python (3.6 or above) installed.
 
