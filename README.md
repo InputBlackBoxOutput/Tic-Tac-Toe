@@ -15,8 +15,8 @@ Run *Tic_Tac_Toe.py* on python and enjoy playing Tic Tac Toe.
 If you are using  Windows OS, then run *Tic_Tac_Toe.bat*
 
 ## Screenshots
-![Screenshot1](https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot1.jpg)
-![Screenshot2](https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot2.jpg)
+<img src="https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot1.jpg" height=400 alt="Screenshot1">
+<img src="https://github.com/InputBlackBoxOutput/Tic-Tac-Toe/blob/master/images/Screenshot2.jpg" height=400 alt="Screenshot2">
 
 ## Contributing
 You may contibute to this project by developing additional features.
