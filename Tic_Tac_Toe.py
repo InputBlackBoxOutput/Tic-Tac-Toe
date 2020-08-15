@@ -249,19 +249,19 @@ class GUI(Tk):
 						win_count = win_count + 1
 				if win_count == 3:
 					if x == 0:
-						self.b_list[0].configure(bg='green')
-						self.b_list[1].configure(bg='green')
-						self.b_list[2].configure(bg='green')
+						self.b_list[0].configure(bg='#AFFFAF')
+						self.b_list[1].configure(bg='#AFFFAF')
+						self.b_list[2].configure(bg='#AFFFAF')
 						break 
 					elif x == 1:
-						self.b_list[3].configure(bg='green')
-						self.b_list[4].configure(bg='green')
-						self.b_list[5].configure(bg='green')
+						self.b_list[3].configure(bg='#AFFFAF')
+						self.b_list[4].configure(bg='#AFFFAF')
+						self.b_list[5].configure(bg='#AFFFAF')
 						break
 					elif x == 2:
-						self.b_list[6].configure(bg='green')
-						self.b_list[7].configure(bg='green')
-						self.b_list[8].configure(bg='green')
+						self.b_list[6].configure(bg='#AFFFAF')
+						self.b_list[7].configure(bg='#AFFFAF')
+						self.b_list[8].configure(bg='#AFFFAF')
 						break
 
 			# Check for 3 cross/nut in a column
@@ -272,19 +272,19 @@ class GUI(Tk):
 						win_count = win_count + 1
 				if win_count == 3:
 					if y == 0:
-						self.b_list[0].configure(bg='green')
-						self.b_list[3].configure(bg='green')
-						self.b_list[6].configure(bg='green')
+						self.b_list[0].configure(bg='#AFFFAF')
+						self.b_list[3].configure(bg='#AFFFAF')
+						self.b_list[6].configure(bg='#AFFFAF')
 						break 
 					elif y == 1:
-						self.b_list[1].configure(bg='green')
-						self.b_list[4].configure(bg='green')
-						self.b_list[7].configure(bg='green')
+						self.b_list[1].configure(bg='#AFFFAF')
+						self.b_list[4].configure(bg='#AFFFAF')
+						self.b_list[7].configure(bg='#AFFFAF')
 						break
 					elif y == 2:
-						self.b_list[2].configure(bg='green')
-						self.b_list[5].configure(bg='green')
-						self.b_list[8].configure(bg='green')
+						self.b_list[2].configure(bg='#AFFFAF')
+						self.b_list[5].configure(bg='#AFFFAF')
+						self.b_list[8].configure(bg='#AFFFAF')
 						break			   
 
 			# Check for 3 cross/nut across diagonals
@@ -293,9 +293,9 @@ class GUI(Tk):
 				if self.board.cross_nut_map[player] == self.board.grid_map[i][i]:
 					win_count = win_count + 1
 			if win_count == 3:
-				self.b_list[0].configure(bg='green')
-				self.b_list[4].configure(bg='green')
-				self.b_list[8].configure(bg='green')
+				self.b_list[0].configure(bg='#AFFFAF')
+				self.b_list[4].configure(bg='#AFFFAF')
+				self.b_list[8].configure(bg='#AFFFAF')
 				return
 
 			win_count = 0
@@ -307,9 +307,9 @@ class GUI(Tk):
 				win_count = win_count + 1
 			
 			if win_count == 3:
-				self.b_list[2].configure(bg='green')
-				self.b_list[4].configure(bg='green')
-				self.b_list[6].configure(bg='green')
+				self.b_list[2].configure(bg='#AFFFAF')
+				self.b_list[4].configure(bg='#AFFFAF')
+				self.b_list[6].configure(bg='#AFFFAF')
 				return
 			
 		
